@@ -27,7 +27,7 @@ class CustomTextFormField extends StatelessWidget {
     this.validator,
   });
 
-  @override 
+  @override
   Widget build(BuildContext context) {
     return TextFormField(
       cursorColor: AppColors.primaryColor,
@@ -48,7 +48,8 @@ class CustomTextFormField extends StatelessWidget {
           borderSide: BorderSide(color: AppColors.primaryColor),
           borderRadius: BorderRadius.circular(10),
         ),
-        prefixIcon: isHavePrefix ? Icon(icon, color: AppColors.primaryColor) : null,
+        prefixIcon:
+            isHavePrefix ? Icon(icon, color: AppColors.primaryColor) : null,
         hintStyle: TextStyle(color: AppColors.grey, fontSize: 12),
         hintText: hintText,
         label: labelText != null ? Text(labelText!) : null,

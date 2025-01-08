@@ -12,7 +12,6 @@ class ApiKeys {
   static String token = "token";
   static String message = "message";
   static String name = "name";
-  static String age = "age";
-  static String height = "height";
-  static String weight = "weight";
+  static String serviceCenters = "service-centers";
+  static String products = "products";
 }

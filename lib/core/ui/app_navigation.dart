@@ -4,6 +4,8 @@ import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.da
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 
+import '../../features/profile/presentation/views/profile_view.dart';
+
 class AppNavigation extends StatefulWidget {
   const AppNavigation({super.key});
 
@@ -17,7 +19,7 @@ class _AppNavigationState extends State<AppNavigation> {
   final List<Widget> _pages = [
     const HomeView(),
     const HomeView(),
-    const HomeView(),
+    const ProfileView(),
   ];
 
   @override

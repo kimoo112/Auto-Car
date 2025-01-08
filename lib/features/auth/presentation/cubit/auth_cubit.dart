@@ -33,7 +33,7 @@ class AuthCubit extends Cubit<AuthState> {
       debugPrint(user.name);
       await CacheHelper.saveSecuredString(key: ApiKeys.token, value: token!);
       await CacheHelper.saveData(key: ApiKeys.name, value: user.name);
-      await CacheHelper.saveData(key: ApiKeys.age, value: user.email);
+      await CacheHelper.saveData(key: ApiKeys.email, value: user.email);
       debugPrint(CacheHelper.getData(key: user.name!));
       emit(LoginSuccess());
     } on ServerException catch (e) {
@@ -54,10 +54,11 @@ class AuthCubit extends Cubit<AuthState> {
       emit(SignUpFailure(e.errModel.errorMessage));
     }
   }
+
   void clearSignupControllers() {
-  signupName.clear();
-  signupEmail.clear();
-  signupPassword.clear();
-  signupConfirmPassword.clear();
-}
+    signupName.clear();
+    signupEmail.clear();
+    signupPassword.clear();
+    signupConfirmPassword.clear();
+  }
 }

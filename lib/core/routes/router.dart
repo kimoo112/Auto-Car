@@ -4,10 +4,14 @@ import 'package:auto_car/features/auth/presentation/views/login_view.dart';
 import 'package:auto_car/features/auth/presentation/views/signup_view.dart';
 import 'package:auto_car/features/home/presentation/views/home_view.dart';
 import 'package:auto_car/features/on_boarding/presentation/views/on_boarding_view.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/home/presentation/cubit/home_cubit.dart';
 import '../../features/splash/splash_view.dart';
+import '../api/dio_consumer.dart';
 
 final GoRouter router = GoRouter(
   routes: [
@@ -41,10 +45,15 @@ final GoRouter router = GoRouter(
         return const HomeView();
       },
     ),
-     GoRoute(
+    GoRoute(
       path: appNavigation,
       builder: (BuildContext context, GoRouterState state) {
-        return const AppNavigation();
+        return BlocProvider(
+          create: (_) => HomeCubit(DioConsumer(dio: Dio()))
+            ..getLocation()
+            ..getServicesCenters(),
+          child: const AppNavigation(),
+        );
       },
     ),
   ],

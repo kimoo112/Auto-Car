@@ -29,7 +29,7 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onPressed,
-      borderRadius: BorderRadius.circular(borderRadius ??55),
+      borderRadius: BorderRadius.circular(borderRadius ?? 55),
       child: Container(
         margin: EdgeInsets.all(marginSize ?? 8),
         width: width ?? double.infinity,

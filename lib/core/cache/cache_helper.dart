@@ -55,6 +55,6 @@ class CacheHelper {
 
   static getSecuredString({required String key}) async {
     const storage = FlutterSecureStorage();
-    return await storage.read(key: key)?? '';
+    return await storage.read(key: key) ?? '';
   }
 }

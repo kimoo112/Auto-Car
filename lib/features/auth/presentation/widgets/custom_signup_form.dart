@@ -21,8 +21,6 @@ class CustomSignupForm extends StatefulWidget {
 }
 
 class _CustomSignupFormState extends State<CustomSignupForm> {
-
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthState>(
