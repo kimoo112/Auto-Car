@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/utils/app_text_styles.dart';
 
-
 class CustomNavBar extends StatelessWidget {
   const CustomNavBar({
     super.key,

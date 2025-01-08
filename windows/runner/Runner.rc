@@ -93,7 +93,7 @@ BEGIN
             VALUE "FileDescription", "auto_car" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "auto_car" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2024 com.example. All rights reserved." "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2025 com.example. All rights reserved." "\0"
             VALUE "OriginalFilename", "auto_car.exe" "\0"
             VALUE "ProductName", "auto_car" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"

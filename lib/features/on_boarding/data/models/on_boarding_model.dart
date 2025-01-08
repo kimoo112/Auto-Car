@@ -15,21 +15,17 @@ class OnBoardingModel {
 List<OnBoardingModel> onBoardingData = [
   OnBoardingModel(
     imagePath: Assets.imagesOnboarding1,
-   title: 'Welcome To Auto Car',
-    subTitle:
-        "Your trusted automotive companion.",
-    
+    title: 'Welcome To Auto Car',
+    subTitle: "Your trusted automotive companion.",
   ),
   OnBoardingModel(
     imagePath: Assets.imagesOnboarding2,
-   title: 'Find the Best Mechanics',
-    subTitle:
-        "Discover top-rated mechanics easily !",
+    title: 'Find the Best Mechanics',
+    subTitle: "Discover top-rated mechanics easily !",
   ),
   OnBoardingModel(
     imagePath: Assets.imagesOnboarding3,
-   title: 'Find Nearby ',
-    subTitle:
-        "Find mechanics and stations on the map !",
+    title: 'Find Nearby ',
+    subTitle: "Find mechanics and stations on the map !",
   ),
 ];
