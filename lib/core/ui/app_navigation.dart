@@ -1,5 +1,6 @@
 import 'package:auto_car/core/utils/app_colors.dart';
 import 'package:auto_car/features/home/presentation/views/home_view.dart';
+import 'package:auto_car/features/store/presentation/views/store_view.dart';
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
@@ -18,7 +19,7 @@ class _AppNavigationState extends State<AppNavigation> {
 
   final List<Widget> _pages = [
     const HomeView(),
-    const HomeView(),
+    const StoreView(),
     const ProfileView(),
   ];
 

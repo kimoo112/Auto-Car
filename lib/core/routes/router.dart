@@ -4,6 +4,8 @@ import 'package:auto_car/features/auth/presentation/views/login_view.dart';
 import 'package:auto_car/features/auth/presentation/views/signup_view.dart';
 import 'package:auto_car/features/home/presentation/views/home_view.dart';
 import 'package:auto_car/features/on_boarding/presentation/views/on_boarding_view.dart';
+import 'package:auto_car/features/store/presentation/cubit/store_cubit.dart';
+import 'package:auto_car/features/store/presentation/views/store_view.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,20 +42,34 @@ final GoRouter router = GoRouter(
       },
     ),
     GoRoute(
+      path: appNavigation,
+      builder: (BuildContext context, GoRouterState state) {
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (_) => HomeCubit(DioConsumer(dio: Dio()))
+                ..getLocation()
+                ..getServicesCenters(),
+            ),
+            BlocProvider(
+              create: (context) =>
+                  StoreCubit(DioConsumer(dio: Dio()))..getProducts(),
+            )
+          ],
+          child: const AppNavigation(),
+        );
+      },
+    ),
+    GoRoute(
       path: homeView,
       builder: (BuildContext context, GoRouterState state) {
         return const HomeView();
       },
     ),
     GoRoute(
-      path: appNavigation,
+      path: storeView,
       builder: (BuildContext context, GoRouterState state) {
-        return BlocProvider(
-          create: (_) => HomeCubit(DioConsumer(dio: Dio()))
-            ..getLocation()
-            ..getServicesCenters(),
-          child: const AppNavigation(),
-        );
+        return const StoreView();
       },
     ),
   ],
