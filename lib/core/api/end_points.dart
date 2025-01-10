@@ -13,5 +13,6 @@ class ApiKeys {
   static String message = "message";
   static String name = "name";
   static String serviceCenters = "service-centers";
+  static String fuelStations = "fuel-stations";
   static String products = "products";
 }

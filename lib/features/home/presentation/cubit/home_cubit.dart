@@ -1,4 +1,6 @@
 import 'package:auto_car/core/api/exceptions.dart';
+import 'package:auto_car/core/cache/cache_helper.dart';
+import 'package:auto_car/features/home/data/fuel_stations_model/fuel_stations_model.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -15,6 +17,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   HomeCubit(this.api) : super(HomeInitial());
   List<ServicesCentersModel> servicesCenters = [];
+  List<FuelStationsModel> fuelStations = [];
   double? latitude;
   double? longitude;
   getServicesCenters() async {
@@ -26,9 +29,27 @@ class HomeCubit extends Cubit<HomeState> {
       servicesCenters = (response as List)
           .map((item) => ServicesCentersModel.fromJson(item))
           .toList();
+            for (var center in servicesCenters) {
+      if (center.id != null && center.name != null) {
+        await CacheHelper.saveData(key:center.id!,value:  center.name!);
+      }
+          }
       emit(ServiceCentersLoaded(servicesCenters: servicesCenters));
     } on ServerException catch (e) {
       emit(ServiceCentersFailure(errMsg: e.errModel.errorMessage));
+    }
+  }
+
+  getFuelStations() async {
+    emit(FuelStationsLoading());
+    try {
+      final response = await api.get(ApiKeys.fuelStations);
+      fuelStations = (response as List)
+          .map((item) => FuelStationsModel.fromJson(item))
+          .toList();
+      emit(FuelStationsLoaded(fuelStations: fuelStations));
+    } on ServerException catch (e) {
+      emit(FuelStationsFailure(errMsg: e.errModel.errorMessage));
     }
   }
 

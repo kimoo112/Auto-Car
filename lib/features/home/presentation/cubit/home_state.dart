@@ -20,6 +20,20 @@ final class ServiceCentersFailure extends HomeState {
   ServiceCentersFailure({required this.errMsg});
 }
 
+final class FuelStationsLoading extends HomeState {}
+
+final class FuelStationsLoaded extends HomeState {
+  final List<FuelStationsModel> fuelStations;
+
+  FuelStationsLoaded({required this.fuelStations});
+}
+
+final class FuelStationsFailure extends HomeState {
+  final String errMsg;
+
+  FuelStationsFailure({required this.errMsg});
+}
+
 class LocationLoadingRoute extends HomeState {}
 
 class LocationLoaded extends HomeState {

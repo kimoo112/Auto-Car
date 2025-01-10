@@ -23,19 +23,20 @@ class _HomeViewState extends State<HomeView> {
   void initState() {
     super.initState();
     mapController = MapController();
-
     context.read<HomeCubit>().getLocation();
     context.read<HomeCubit>().getServicesCenters();
+    context.read<HomeCubit>().getFuelStations();
   }
 
   LatLng? initialLocation;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, state) {
-          if (state is LocationLoadingRoute || state is ServiceCentersLoading) {
+          if (state is LocationLoadingRoute ||
+              state is ServiceCentersLoading ||
+              state is FuelStationsLoading) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is LocationError || state is ServiceCentersFailure) {
             return Center(
@@ -46,53 +47,44 @@ class _HomeViewState extends State<HomeView> {
                 style: const TextStyle(color: Colors.red),
               ),
             );
-          } else if (state is LocationLoaded || state is ServiceCentersLoaded) {
+          } else if (state is LocationLoaded ||
+              state is ServiceCentersLoaded ||
+              state is FuelStationsLoaded) {
             final cubit = context.read<HomeCubit>();
             if (initialLocation == null &&
                 cubit.latitude != null &&
                 cubit.longitude != null) {
               initialLocation = LatLng(cubit.latitude!, cubit.longitude!);
-
-              // Use post-frame callback to move the map after it has been rendered
               WidgetsBinding.instance.addPostFrameCallback((_) {
-                mapController.move(
-                    initialLocation!, 11.0); // Move to user location
+                mapController.move(initialLocation!, 11.0);
               });
             }
-
             final markers = <Marker>[
               Marker(
                 width: 80.0,
                 height: 80.0,
-                point: LatLng(
-                    cubit.latitude ?? 0.0,
-                    cubit.longitude ??
-                        0.0), // Default to (0, 0) if latitude/longitude is null
+                point: LatLng(cubit.latitude ?? 0.0, cubit.longitude ?? 0.0),
                 child: Icon(
                   IconlyBold.location,
                   color: AppColors.blue,
                   size: 40.0,
                 ),
               ),
-              // Service centers markers
               ...List<Marker>.generate(
                 cubit.servicesCenters.length,
                 (index) {
                   final center = cubit.servicesCenters[index];
                   final coordinates = center.location?.coordinates;
-
                   if (coordinates != null && coordinates.length == 2) {
                     final lat = coordinates[1];
                     final lng = coordinates[0];
-
                     debugPrint(
                         'Marker $index: ${center.name}, LatLng: ($lat, $lng)');
-
                     return Marker(
                         width: 60,
                         height: 60,
-                        point:
-                            LatLng(lat, lng), // Ensure correct Lat, Lng order
+                        point: LatLng(
+                            lat + (0.001 / index), lng + (0.01 * index)),
                         child: GestureDetector(
                             onTap: () {
                               _showServiceCenterDetails(context, center);
@@ -109,14 +101,39 @@ class _HomeViewState extends State<HomeView> {
                   }
                 },
               ),
+              ...List<Marker>.generate(
+                cubit.fuelStations.length,
+                (index) {
+                  final center = cubit.fuelStations[index];
+                  final coordinates = center.location?.coordinates;
+                  if (coordinates != null && coordinates.length == 2) {
+                    final lat = coordinates[1];
+                    final lng = coordinates[0];
+                    debugPrint(
+                        'Fuel Stations $index: ${center.name}, LatLng: ($lat, $lng)');
+                    return Marker(
+                        width: 60,
+                        height: 60,
+                        point: LatLng(lat + 0.01, lng + 0.1),
+                        child: GestureDetector(
+                            onTap: () {},
+                            child: Image.asset(Assets.imagesFuelStation)));
+                  } else {
+                    return const Marker(
+                      point: LatLng(0.0, 0.0),
+                      child: Icon(
+                        Icons.error,
+                        color: Colors.red,
+                      ),
+                    );
+                  }
+                },
+              ),
             ];
-
             return FlutterMap(
               mapController: mapController,
               options: MapOptions(
-                initialCenter: initialLocation ??
-                    const LatLng(
-                        41.0, 40.0), // Default location if no initial location
+                initialCenter: initialLocation ?? const LatLng(41.0, 40.0),
                 minZoom: 11,
                 maxZoom: 16,
                 onTap: (_, point) {

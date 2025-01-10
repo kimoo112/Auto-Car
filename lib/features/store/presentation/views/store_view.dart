@@ -1,8 +1,11 @@
+import 'package:auto_car/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../../core/cache/cache_helper.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../cubit/store_cubit.dart';
 
@@ -28,22 +31,10 @@ class StoreView extends StatelessWidget {
                   margin: EdgeInsets.all(12.r),
                   padding: EdgeInsets.all(12.r),
                   decoration: BoxDecoration(
-                      color: AppColors.white,
-                      borderRadius: BorderRadius.circular(15),
-                     ),
-                  child: ListTile(
-                    leading:
-                       const Icon(Icons.image_not_supported, size: 80),
-                    title: const Text("product.name!"),
-                    subtitle: const Text("product.description!"),
-                    trailing: Text(
-                      "'\$'",
-                      style: TextStyle(color: AppColors.primaryColor),
-                    ),
-                    onTap: () {
-                      // Handle product tap
-                    },
+                    color: AppColors.white,
+                    borderRadius: BorderRadius.circular(15),
                   ),
+                  child: const ListTile(),
                 ),
               ),
             );
@@ -65,27 +56,73 @@ class StoreView extends StatelessWidget {
                             spreadRadius: 1,
                             color: AppColors.grey.withOpacity(.4))
                       ]),
-                  child: ListTile(
-                    leading: product.images!.isNotEmpty
-                        ? ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: Image.network(
-                              product.images!.first,
-                              width: 100,
-                              height: 120,
-                              fit: BoxFit.cover,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      product.images!.isNotEmpty
+                          ? ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Image.network(
+                                product.images!.first,
+                                width: 100,
+                                height: 120,
+                                fit: BoxFit.cover,
+                              ),
+                            )
+                          : const Icon(Icons.image_not_supported, size: 80),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              product.name!,
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          )
-                        : const Icon(Icons.image_not_supported, size: 80),
-                    title: Text(product.name!),
-                    subtitle: Text(product.description!),
-                    trailing: Text(
-                      '\$${product.price}',
-                      style: TextStyle(color: AppColors.primaryColor),
-                    ),
-                    onTap: () {
-                      // Handle product tap
-                    },
+                            const SizedBox(height: 6),
+                            Text(
+                              product.description!,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style:  TextStyle(
+                                fontSize: 10.sp,
+                                color: AppColors.dark.withOpacity(.6),
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                Icon(
+                                  IconlyBold.location,
+                                  color: AppColors.primaryColor,
+                                  size: 18,
+                                ),
+                                const SizedBox(width: 4),
+                                Expanded(
+                                  child: Text(
+                                    CacheHelper.getData(
+                                            key: product.serviceCenterId!) ??
+                                        "ExxonMobil Station",
+                                    style:
+                                        CustomTextStyles.poppins400Style12Grey,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      Text(
+                        '\$${product.price}',
+                        style: TextStyle(
+                          color: AppColors.primaryColor,
+                        ),
+                      ),
+                    ],
                   ),
                 );
               },
