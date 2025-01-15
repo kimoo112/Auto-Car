@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'core/routes/router.dart';
+import 'core/utils/bloc_observer.dart';
 import 'features/auth/presentation/cubit/auth_cubit.dart';
 
 void main() {
@@ -15,6 +16,7 @@ void main() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
   ));
+  Bloc.observer = MyBlocObserver();
   runApp(const AutoCar());
 }
 

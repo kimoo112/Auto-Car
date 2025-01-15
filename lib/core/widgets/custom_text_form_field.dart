@@ -54,7 +54,7 @@ class CustomTextFormField extends StatelessWidget {
         hintText: hintText,
         label: labelText != null ? Text(labelText!) : null,
         labelStyle: TextStyle(
-          color: AppColors.grey,
+          color: AppColors.dark.withOpacity(.8),
         ),
         suffixIcon: suffixIcon,
         hoverColor: AppColors.primaryColor,

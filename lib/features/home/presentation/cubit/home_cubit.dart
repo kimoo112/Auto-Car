@@ -20,6 +20,7 @@ class HomeCubit extends Cubit<HomeState> {
   List<FuelStationsModel> fuelStations = [];
   double? latitude;
   double? longitude;
+  bool _isRequestingLocation = false;
   getServicesCenters() async {
     emit(ServiceCentersLoading());
     try {
@@ -29,11 +30,11 @@ class HomeCubit extends Cubit<HomeState> {
       servicesCenters = (response as List)
           .map((item) => ServicesCentersModel.fromJson(item))
           .toList();
-            for (var center in servicesCenters) {
-      if (center.id != null && center.name != null) {
-        await CacheHelper.saveData(key:center.id!,value:  center.name!);
+      for (var center in servicesCenters) {
+        if (center.id != null && center.name != null) {
+          await CacheHelper.saveData(key: center.id!, value: center.name!);
+        }
       }
-          }
       emit(ServiceCentersLoaded(servicesCenters: servicesCenters));
     } on ServerException catch (e) {
       emit(ServiceCentersFailure(errMsg: e.errModel.errorMessage));
@@ -54,23 +55,37 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future<void> getLocation() async {
-    emit(LocationLoadingRoute());
-    PermissionStatus permissionStatus = await Permission.location.request();
+    if (_isRequestingLocation) return; // Prevent multiple requests
 
-    if (permissionStatus.isGranted) {
-      try {
-        Position position = await Geolocator.getCurrentPosition();
-        latitude = position.latitude;
-        longitude = position.longitude;
-        emit(LocationLoaded(
-          latitude: latitude!,
-          longitude: longitude!,
-        ));
-      } catch (e) {
-        emit(LocationError(message: "Error fetching location: $e"));
+    _isRequestingLocation = true;
+    emit(LocationLoadingRoute());
+
+    try {
+      PermissionStatus permissionStatus = await Permission.location.request();
+
+      if (permissionStatus.isGranted) {
+        try {
+          Position position = await Geolocator.getCurrentPosition();
+          latitude = position.latitude;
+          longitude = position.longitude;
+          emit(LocationLoaded(
+            latitude: latitude!,
+            longitude: longitude!,
+          ));
+        } catch (e) {
+          emit(LocationError(message: "Error fetching location: $e"));
+        }
+      } else if (permissionStatus.isPermanentlyDenied) {
+        await openAppSettings(); // Direct user to settings
+        emit(LocationError(
+            message: "Location permission is permanently denied."));
+      } else {
+        emit(LocationError(message: "Location permission is not granted."));
       }
-    } else {
-      emit(LocationError(message: "Location permission is not granted."));
+    } catch (e) {
+      emit(LocationError(message: "Unexpected error: $e"));
+    } finally {
+      _isRequestingLocation = false; 
     }
   }
 }

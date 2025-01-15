@@ -43,18 +43,27 @@ class CacheHelper {
   static Future<bool> containsKey({required String key}) async {
     return sharedPreferences.containsKey(key);
   }
+//! this method to clear all the data in cache
 
   static Future<bool> clearData() async {
     return sharedPreferences.clear();
   }
+//! this method to save the data in secured storage
 
   static saveSecuredString({required String key, required String value}) async {
     const storage = FlutterSecureStorage();
     await storage.write(key: key, value: value);
   }
+//! this method to get the data from secured storage
 
   static getSecuredString({required String key}) async {
     const storage = FlutterSecureStorage();
     return await storage.read(key: key) ?? '';
+  }
+//! this method to delete the data from secured storage
+
+  static removeSecuredString({required String key}) async {
+    const storage = FlutterSecureStorage();
+    return await storage.delete(key: key);
   }
 }

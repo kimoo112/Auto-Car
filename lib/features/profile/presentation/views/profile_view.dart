@@ -1,5 +1,7 @@
 import 'package:auto_car/core/api/end_points.dart';
 import 'package:auto_car/core/cache/cache_helper.dart';
+import 'package:auto_car/core/routes/functions/navigation_functions.dart';
+import 'package:auto_car/core/routes/routes.dart';
 import 'package:auto_car/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
@@ -56,6 +58,9 @@ class ProfileView extends StatelessWidget {
               ListTile(
                 leading: Icon(IconlyLight.plus, color: AppColors.primaryColor),
                 title: const Text('Payment Methods'),
+                onTap: () {
+                  customNavigate(context, cardView);
+                },
                 trailing: Icon(
                   IconlyBroken.arrowRight2,
                   color: AppColors.primaryColor,
@@ -88,13 +93,22 @@ class ProfileView extends StatelessWidget {
                   color: AppColors.primaryColor,
                 ),
               ),
-              ListTile(
-                leading:
-                    Icon(IconlyLight.logout, color: AppColors.primaryColor),
-                title: const Text('Logout'),
-                trailing: Icon(
-                  IconlyBroken.arrowRight2,
-                  color: AppColors.primaryColor,
+              GestureDetector(
+                onTap: () async {
+                  await CacheHelper.removeSecuredString(key: ApiKeys.token);
+                  await CacheHelper.clearData();
+                  if (context.mounted) {
+                    customNavigate(context, loginView);
+                  }
+                },
+                child: ListTile(
+                  leading:
+                      Icon(IconlyLight.logout, color: AppColors.primaryColor),
+                  title: const Text('Logout'),
+                  trailing: Icon(
+                    IconlyBroken.arrowRight2,
+                    color: AppColors.primaryColor,
+                  ),
                 ),
               ),
             ],
