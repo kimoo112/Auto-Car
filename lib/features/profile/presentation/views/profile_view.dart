@@ -34,6 +34,7 @@ class ProfileView extends StatelessWidget {
                       left: 0,
                       child: CircleAvatar(
                         minRadius: 40.h,
+                        backgroundColor: AppColors.white,
                       ))
                 ],
               ),

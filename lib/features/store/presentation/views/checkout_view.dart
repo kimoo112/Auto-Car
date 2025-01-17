@@ -1,3 +1,5 @@
+import 'package:auto_car/core/routes/functions/navigation_functions.dart';
+import 'package:auto_car/core/routes/routes.dart';
 import 'package:auto_car/core/widgets/custom_button.dart';
 import 'package:auto_car/features/store/data/products_model/products_model.dart';
 import 'package:auto_car/features/store/presentation/widgets/cash_on_delivery_form.dart';
@@ -225,8 +227,7 @@ class _CheckoutDetailsScreenState extends State<CheckoutDetailsScreen>
               ),
             ),
           ),
-                30.verticalSpace,
-
+          30.verticalSpace,
           CustomButton(
             text: 'Pay for the order',
             fontSize: 15.sp,
@@ -239,6 +240,10 @@ class _CheckoutDetailsScreenState extends State<CheckoutDetailsScreen>
                     key: 'validThru', value: validThru.text);
                 await CacheHelper.saveData(key: 'cvv', value: cvv.text);
                 await CacheHelper.saveData(key: 'holder', value: holder.text);
+                if (context.mounted) {
+                  // ignore: use_build_context_synchronously
+                  customReplacementAndRemove(context, orderConfirmedView);
+                }
               }
             },
           )
@@ -264,4 +269,3 @@ class _CheckoutDetailsScreenState extends State<CheckoutDetailsScreen>
     );
   }
 }
-

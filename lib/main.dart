@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'core/routes/router.dart';
+import 'core/utils/app_colors.dart';
 import 'core/utils/bloc_observer.dart';
 import 'features/auth/presentation/cubit/auth_cubit.dart';
 
@@ -36,6 +37,9 @@ class AutoCar extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               title: 'Auto Car',
               theme: ThemeData(
+                textSelectionTheme: TextSelectionThemeData(
+                    selectionColor: AppColors.primaryColor,
+                    selectionHandleColor: AppColors.primaryColor),
                 useMaterial3: true,
                 textTheme: Theme.of(context).textTheme.apply(
                       fontFamily: 'Poppins',

@@ -14,25 +14,46 @@ dependencies:
   floating_bottom_navigation_bar: ^1.5.2
   flutter:
     sdk: flutter
+
+  # State Management  
   flutter_bloc: ^8.1.6
-  flutter_iconly: ^1.0.2
-  flutter_map: null
+
+  # Responsive
   flutter_screenutil: ^5.9.3
-  flutter_secure_storage: ^9.2.2
-  geolocator: ^13.0.2
+
+
+  flutter_iconly: ^1.0.2
+  flutterme_credit_card: ^1.0.2
   go_router: ^14.6.2
-  http: ^1.2.2
+
+  # Map Packages
+  geolocator: ^13.0.2
+  flutter_map: null
   latlong2: ^0.9.1
   location: ^7.0.1
   permission_handler: ^11.3.1
+  
+  # Lottie Viewer
+  lottie: 
+
+  # Cache 
   shared_preferences: ^2.3.4
+  flutter_secure_storage: ^9.2.2
+
   shimmer: ^3.0.0
   smooth_page_indicator: ^1.2.0+3
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.14.2
   flutter_lints: ^4.0.0
   flutter_test:
     sdk: flutter
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/yellow_slogan.png"
+  min_sdk_android: 24
 
 flutter:
 

@@ -12,34 +12,34 @@ class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SizedBox(
-        child: Stack(
-          children: [
-            Positioned(
-                top: 0,
-                left: 0,
-                right: 0,
-                child: Image.asset(Assets.imagesYellowSlogan)),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  'Welcome Back 👋',
-                  style: CustomTextStyles.poppins400Style24,
-                ),
-                10.verticalSpace,
-                Text(
-                  'Hi there, you’ve been missed',
-                  style: CustomTextStyles.poppins400Style14
-                      .copyWith(color: AppColors.grey),
-                ),
-                22.verticalSpace,
-                const CustomLoginForm()
-              ],
-            ),
-          ],
-        ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          10.verticalSpace,
+          Image.asset(Assets.imagesYellowSlogan),
+          40.verticalSpace,
+          _buildLoginTitle(),
+          22.verticalSpace,
+          const CustomLoginForm()
+        ],
       ),
+    );
+  }
+
+  Column _buildLoginTitle() {
+    return Column(
+      children: [
+        Text(
+          'Welcome Back 👋',
+          style: CustomTextStyles.poppins400Style24,
+        ),
+        10.verticalSpace,
+        Text(
+          'Hi there, you’ve been missed',
+          style: CustomTextStyles.poppins400Style14
+              .copyWith(color: AppColors.grey),
+        ),
+      ],
     );
   }
 }

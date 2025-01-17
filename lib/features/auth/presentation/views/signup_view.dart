@@ -12,36 +12,35 @@ class SignupView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SizedBox(
-        child: Stack(
-          children: [
-            Positioned(
-                top: 0,
-                left: 0,
-                right: 0,
-                child: Image.asset(Assets.imagesYellowSlogan)),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                77.verticalSpace,
-                Text(
-                  'Join Auto Car Now !',
-                  style: CustomTextStyles.poppins400Style24,
-                ),
-                10.verticalSpace,
-                Text(
-                  'Sign up to connect with nearby mechanics and stations in seconds. ',
-                  style: CustomTextStyles.poppins400Style14
-                      .copyWith(color: AppColors.grey),
-                  textAlign: TextAlign.center,
-                ),
-                22.verticalSpace,
-                const CustomSignupForm()
-              ],
-            ),
-          ],
-        ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          10.verticalSpace,
+          Image.asset(Assets.imagesYellowSlogan),
+          77.verticalSpace,
+          _buildSignupTitle(),
+          22.verticalSpace,
+          const CustomSignupForm()
+        ],
       ),
+    );
+  }
+
+  Column _buildSignupTitle() {
+    return Column(
+      children: [
+        Text(
+          'Join Auto Car Now !',
+          style: CustomTextStyles.poppins400Style24,
+        ),
+        10.verticalSpace,
+        Text(
+          'Sign up to connect with nearby mechanics and stations in seconds. ',
+          style: CustomTextStyles.poppins400Style14
+              .copyWith(color: AppColors.grey),
+          textAlign: TextAlign.center,
+        ),
+      ],
     );
   }
 }

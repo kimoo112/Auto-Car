@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/routes/functions/navigation_functions.dart';
+import '../../../../core/routes/routes.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/widgets/custom_button.dart';
 
@@ -88,37 +90,14 @@ class _CashOnDeliveryFormState extends State<CashOnDeliveryForm> {
               textColor: AppColors.white,
               borderRadius: 15,
               onPressed: () {
-                if (_formKey.currentState!.validate()) {}
+                if (_formKey.currentState!.validate()) {
+                  customReplacementAndRemove(context, orderConfirmedView);
+                }
               },
             ),
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildTextField(
-      TextEditingController controller, String label, IconData icon,
-      {bool isNumber = false}) {
-    return TextFormField(
-      controller: controller,
-      keyboardType: isNumber ? TextInputType.number : TextInputType.text,
-      decoration: InputDecoration(
-        labelText: label,
-        prefixIcon: Icon(
-          icon,
-          color: AppColors.primaryColor,
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-      ),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Please enter $label';
-        }
-        return null;
-      },
     );
   }
 

@@ -18,6 +18,7 @@ import 'package:go_router/go_router.dart';
 import '../../features/home/presentation/cubit/home_cubit.dart';
 import '../../features/profile/presentation/views/card_view.dart';
 import '../../features/splash/splash_view.dart';
+import '../../features/store/presentation/views/order_confirmed_view.dart';
 import '../api/dio_consumer.dart';
 
 final GoRouter router = GoRouter(
@@ -93,6 +94,12 @@ final GoRouter router = GoRouter(
         return CheckoutDetailsScreen(
           product: product,
         );
+      },
+    ),
+    GoRoute(
+      path: orderConfirmedView,
+      builder: (BuildContext context, GoRouterState state) {
+        return const OrderConfirmedView();
       },
     ),
     GoRoute(

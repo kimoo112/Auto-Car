@@ -2,6 +2,14 @@
 class Assets {
   Assets._();
   
+  /// Assets for imagesDoneGreen
+  /// assets/images/done_green.json
+  static const String imagesDoneGreen = "assets/images/done_green.json";
+
+  /// Assets for imagesDoneYellow
+  /// assets/images/done_yellow.json
+  static const String imagesDoneYellow = "assets/images/done_yellow.json";
+
   /// Assets for imagesFuelStation
   /// assets/images/fuel_station.png
   static const String imagesFuelStation = "assets/images/fuel_station.png";
@@ -21,6 +29,10 @@ class Assets {
   /// Assets for imagesOnboarding3
   /// assets/images/onboarding3.png
   static const String imagesOnboarding3 = "assets/images/onboarding3.png";
+
+  /// Assets for imagesSearchImage
+  /// assets/images/search_image.png
+  static const String imagesSearchImage = "assets/images/search_image.png";
 
   /// Assets for imagesServicesCenters
   /// assets/images/Services_centers.png
